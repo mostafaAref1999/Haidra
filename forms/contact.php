@@ -7,7 +7,7 @@
   */
 
   // Replace contact@example.com with your real receiving email address
-  $receiving_email_address = 'contact@example.com';
+  $receiving_email_address = 'mostafaarefmostafa@gmail.com';
 
   if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
     include( $php_email_form );
@@ -22,7 +22,7 @@
   $contact->from_name = $_POST['name'];
   $contact->from_email = $_POST['email'];
   $contact->subject = $_POST['subject'];
-  $contact->message = $_POST['message'];
+
   // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
   /*
   $contact->smtp = array(
@@ -33,14 +33,9 @@
   );
   */
 
-  $to = "Haidra.sicherheitsdienst@gmail.com";
-  $subject = "Mail From HAIDARA";
-  $txt ="Name = ". $contact->from_name . "\r\n  Email = " . $contact->from_email . "\r\n subject =" . $contact->subject . "\r\n Message =" . $contact->message;
-  $headers = "From: noreply@yoursite.com" . "\r\n" .
-  "CC: somebodyelse@example.com";
-  if($email!=NULL){
-      mail($to,$subject,$txt,$headers);
-  }
-  //redirect
-  header("Location:thankyou.html");
+  $contact->add_message( $_POST['name'], 'From');
+  $contact->add_message( $_POST['email'], 'Email');
+  $contact->add_message( $_POST['message'], 'Message', 10);
+
+  echo $contact->send();
 ?>
